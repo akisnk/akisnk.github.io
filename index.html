@@ -190,6 +190,8 @@
   .vbtn.want.on{background:linear-gradient(120deg,var(--gold-hi),var(--gold) 55%,#c99a3e);color:#1a1206;border-color:transparent;box-shadow:0 0 14px rgba(228,178,88,.4)}
   .vbtn.pass.on{background:#3a3d4f;color:#fff;border-color:transparent}
   .vote.voted .vq{color:var(--gold)}
+  .vn{display:none;margin-left:5px;font-size:11px;opacity:.75}
+  .vote.voted .vn.show{display:inline}
 
   .src{font-size:10px;color:#565a6c;margin-top:9px;letter-spacing:.05em}
 
@@ -255,7 +257,7 @@
         </div>
         <div class="note-line">atmos公式が「国内atmos／NIKE直営店限定」と明記</div>
         <div class="actions"><a class="btn primary" href="https://www.atmos-tokyo.com/raffles" target="_blank" rel="noopener">抽選結果（atmos）</a></div>
-        <div class="vote" data-sku="FZ5591-603"><span class="vq">この靴は…</span><button class="vbtn want" onclick="vote(this,'want')">🔥 欲しい！</button><button class="vbtn pass" onclick="vote(this,'pass')">👋 いらない</button></div>
+        <div class="vote" data-sku="FZ5591-603"><span class="vq">この靴は…</span><button class="vbtn want" onclick="vote(this,'want')">🔥 欲しい！<span class="vn"></span></button><button class="vbtn pass" onclick="vote(this,'pass')">👋 いらない<span class="vn"></span></button></div>
         <div class="src">情報源: atmos公式｜品番 FZ5591-603</div>
       </div>
     </div>
@@ -273,7 +275,7 @@
         </div>
         <div class="note-line">スニダンでは “Oreo” 表記</div>
         <div class="actions"><a class="btn primary" href="https://www.nike.com/jp/launch" target="_blank" rel="noopener">SNKRSで見る</a></div>
-        <div class="vote" data-sku="IU2827-001"><span class="vq">この靴は…</span><button class="vbtn want" onclick="vote(this,'want')">🔥 欲しい！</button><button class="vbtn pass" onclick="vote(this,'pass')">👋 いらない</button></div>
+        <div class="vote" data-sku="IU2827-001"><span class="vq">この靴は…</span><button class="vbtn want" onclick="vote(this,'want')">🔥 欲しい！<span class="vn"></span></button><button class="vbtn pass" onclick="vote(this,'pass')">👋 いらない<span class="vn"></span></button></div>
         <div class="src">情報源: SNKRS／スニーカーダンク｜品番 IU2827-001</div>
       </div>
     </div>
@@ -291,7 +293,7 @@
         </div>
         <div class="note-line">atmosウェブ抽選・当選発表 9/12 9:00。SNKRSでも 9/12 9:00 発売。スニダンでは “Bucks” 表記</div>
         <div class="actions"><a class="btn primary" href="https://www.atmos-tokyo.com/raffles" target="_blank" rel="noopener">応募ページ（atmos）</a><button class="btn ghost" onclick="addCal(this)" data-title="【抽選締切】AJ12 レトロ（atmos）" data-date="20260909T235900Z">📅 締切を登録</button></div>
-        <div class="vote" data-sku="CT8013-103"><span class="vq">この靴は…</span><button class="vbtn want" onclick="vote(this,'want')">🔥 欲しい！</button><button class="vbtn pass" onclick="vote(this,'pass')">👋 いらない</button></div>
+        <div class="vote" data-sku="CT8013-103"><span class="vq">この靴は…</span><button class="vbtn want" onclick="vote(this,'want')">🔥 欲しい！<span class="vn"></span></button><button class="vbtn pass" onclick="vote(this,'pass')">👋 いらない<span class="vn"></span></button></div>
         <div class="src">情報源: SNKRS／atmos公式｜品番 CT8013-103</div>
       </div>
     </div>
@@ -309,7 +311,7 @@
         </div>
         <div class="note-line">Instant・FTC・TACTICS など各店のウェブ／店舗抽選。応募条件は各店の告知を確認。9/5時点でSNKRS掲載なし</div>
         <div class="actions"><a class="btn primary" href="https://snkrdunk.com/articles/30330/" target="_blank" rel="noopener">🎟 応募先まとめ（スニダン）</a><button class="btn ghost" onclick="addCal(this)" data-title="【発売】堀米雄斗 × ナイキSB エア フォース 1 Low" data-date="20260912">📅 発売日を登録</button></div>
-        <div class="vote" data-sku="IO8439-100"><span class="vq">この靴は…</span><button class="vbtn want" onclick="vote(this,'want')">🔥 欲しい！</button><button class="vbtn pass" onclick="vote(this,'pass')">👋 いらない</button></div>
+        <div class="vote" data-sku="IO8439-100"><span class="vq">この靴は…</span><button class="vbtn want" onclick="vote(this,'want')">🔥 欲しい！<span class="vn"></span></button><button class="vbtn pass" onclick="vote(this,'pass')">👋 いらない<span class="vn"></span></button></div>
         <div class="src">情報源: スニーカーダンク／各スケートショップの告知｜品番 IO8439-100</div>
       </div>
     </div>
@@ -354,7 +356,16 @@
     window.open(url,'_blank');
   }
 
-  // 欲しい／いらない投票（この端末のブラウザにだけ保存。もう一度押すと取り消し）
+  // 欲しい／いらない投票。自分の選択はこの端末のブラウザに保存（もう一度押すと取り消し）。
+  // VOTE_API が設定されていれば匿名で集計にも送り、投票後にみんなの数を表示する。
+  var VOTE_API = 'https://script.google.com/macros/s/AKfycbx_m8X11rJ_1FD4cuNj6UZnq3OV-N8TcvEFqiL0ik9Beds_jdB8MLeIexABvpuYlQgGkQ/exec';
+  var tallies = {};
+
+  function curVote(box){
+    if(box.querySelector('.vbtn.want').classList.contains('on')) return 'want';
+    if(box.querySelector('.vbtn.pass').classList.contains('on')) return 'pass';
+    return null;
+  }
   function paintVote(box, v){
     var btns = box.querySelectorAll('.vbtn');
     for(var i=0;i<btns.length;i++){
@@ -362,16 +373,38 @@
     }
     box.classList.toggle('voted', !!v);
     box.querySelector('.vq').textContent = v ? '回答ありがとう！' : 'この靴は…';
+    paintCounts(box);
+  }
+  function paintCounts(box){
+    if(!VOTE_API) return;
+    var t = tallies[box.dataset.sku];
+    var kinds = ['want','pass'];
+    for(var i=0;i<kinds.length;i++){
+      var vn = box.querySelector('.vbtn.'+kinds[i]+' .vn');
+      vn.textContent = t ? String(t[kinds[i]] || 0) : '';
+      vn.classList.toggle('show', !!t);
+    }
   }
   function vote(btn, v){
     var box = btn.closest('.vote');
-    var key = 'akisnk_vote_' + box.dataset.sku;
-    // いま選ばれている方は画面の状態から判定（localStorageが使えない環境でも取り消しが効くように）
-    var cur = btn.classList.contains('on') ? v : null;
+    var sku = box.dataset.sku;
+    var cur = curVote(box);
     var next = (cur === v) ? null : v;
     try{
-      if(next){ localStorage.setItem(key, next); } else { localStorage.removeItem(key); }
+      if(next){ localStorage.setItem('akisnk_vote_'+sku, next); }
+      else{ localStorage.removeItem('akisnk_vote_'+sku); }
     }catch(e){}
+    if(VOTE_API){
+      // 手元の集計も先に合わせておく（表示ずれ防止）
+      var t = tallies[sku] = tallies[sku] || {want:0, pass:0};
+      if(cur){ t[cur] = Math.max(0, (t[cur]||0) - 1); }
+      if(next){ t[next] = (t[next]||0) + 1; }
+      try{
+        fetch(VOTE_API, {method:'POST', mode:'no-cors',
+          headers:{'Content-Type':'text/plain'},
+          body: JSON.stringify({sku: sku, add: next, remove: cur})});
+      }catch(e){}
+    }
     paintVote(box, next);
   }
   (function(){
@@ -380,6 +413,12 @@
       var v = null;
       try{ v = localStorage.getItem('akisnk_vote_' + boxes[i].dataset.sku); }catch(e){}
       if(v === 'want' || v === 'pass'){ paintVote(boxes[i], v); }
+    }
+    if(VOTE_API){
+      fetch(VOTE_API).then(function(r){ return r.json(); }).then(function(j){
+        if(j && typeof j === 'object'){ tallies = j; }
+        for(var i=0;i<boxes.length;i++){ paintCounts(boxes[i]); }
+      }).catch(function(e){});
     }
   })();
 </script>
