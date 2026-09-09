@@ -222,7 +222,7 @@
 
   <div class="nextup">
     <div class="lbl">NEXT DEADLINE</div>
-    <div class="what">堀米AF1 ON-IZEME WEB 抽選締切まで（9/8 19:00）</div>
+    <div class="what" id="cdwhat">堀米AF1 ON-IZEME WEB 抽選締切まで（9/8 19:00）</div>
     <div class="count" id="cd">
       <div class="cell"><div class="num" id="d">–</div><div class="u">DAYS</div></div>
       <div class="cell"><div class="num" id="h">–</div><div class="u">HOURS</div></div>
@@ -230,12 +230,12 @@
       <div class="cell"><div class="num" id="s">–</div><div class="u">SEC</div></div>
     </div>
     <div class="dlist">
-      <div class="dl done"><span class="when">9/7 8:59</span><span>G.T. FUTURE EP — 終了（発表 9/8 9:00）</span></div>
-      <div class="dl done"><span class="when">9/8 0:00</span><span>堀米 AF1（FTC／Instant WEB）— 終了</span></div>
-      <div class="dl"><span class="when">9/8(火) 19:00</span><span>堀米 AF1（ON-IZEME WEB）</span></div>
-      <div class="dl"><span class="when">9/9(水) 23:59</span><span>堀米 AF1（TACTICS WEB）</span></div>
-      <div class="dl"><span class="when">9/10(木) 8:59</span><span>エア ジョーダン 12 レトロ（atmos）</span></div>
-      <div class="dl"><span class="when">9/10〜9/12</span><span>堀米 AF1 そのほか各店（PURRBS・HI5・Growth など締切は店ごと）</span></div>
+      <div class="dl done" data-iso="2026-09-07T08:59:00+09:00"><span class="when">9/7 8:59</span><span>G.T. FUTURE EP — 終了（発表 9/8 9:00）</span></div>
+      <div class="dl done" data-iso="2026-09-08T00:00:00+09:00"><span class="when">9/8 0:00</span><span>堀米 AF1（FTC／Instant WEB）— 終了</span></div>
+      <div class="dl" data-iso="2026-09-08T19:00:00+09:00"><span class="when">9/8(火) 19:00</span><span>堀米 AF1（ON-IZEME WEB）</span></div>
+      <div class="dl" data-iso="2026-09-09T23:59:00+09:00"><span class="when">9/9(水) 23:59</span><span>堀米 AF1（TACTICS WEB）</span></div>
+      <div class="dl" data-iso="2026-09-10T08:59:00+09:00"><span class="when">9/10(木) 8:59</span><span>エア ジョーダン 12 レトロ（atmos）</span></div>
+      <div class="dl" data-iso="2026-09-12T23:59:00+09:00"><span class="when">9/10〜9/12</span><span>堀米 AF1 そのほか各店（PURRBS・HI5・Growth など締切は店ごと）</span></div>
       <div class="dlnote">堀米AF1はスケートショップ各店の抽選（条件・URLは各店の告知）／AJ12はatmosウェブ抽選</div>
     </div>
   </div>
@@ -435,17 +435,53 @@
 </div>
 
 <script>
-  // 次の締切（JSTのISO文字列。JSONの countdown.target）
-  var target = new Date('2026-09-08T19:00:00+09:00').getTime();
+  // 締切候補（時刻つきの行だけ。ビルド時に週データから作る）と、全部過ぎたときの逃げ先
+  var DEADLINES = [{"iso": "2026-09-08T19:00:00+09:00", "label": "堀米 AF1（ON-IZEME WEB） 締切まで（9/8(火) 19:00）"}, {"iso": "2026-09-09T23:59:00+09:00", "label": "堀米 AF1（TACTICS WEB） 締切まで（9/9(水) 23:59）"}, {"iso": "2026-09-10T08:59:00+09:00", "label": "エア ジョーダン 12 レトロ（atmos） 締切まで（9/10(木) 8:59）"}];
+  var FALLBACK  = [{"iso": "2026-09-08T09:00:00+09:00", "label": "次の発売まで（9/8 9:00）"}, {"iso": "2026-09-11T09:00:00+09:00", "label": "次の発売まで（9/11 9:00）"}, {"iso": "2026-09-12T09:00:00+09:00", "label": "次の発売まで（9/12 9:00）"}, {"iso": "2026-09-19T09:00:00+09:00", "label": "次の発売まで（9/19 9:00）"}, {"iso": "2026-09-25T09:00:00+09:00", "label": "次の発売まで（9/25 9:00）"}, {"iso": "2026-10-10T09:00:00+09:00", "label": "次の発売まで（10/10 9:00）"}];   // 締切が全部過ぎたら「次の発売まで」に切り替える
+  var target = 0;
+
+  // 見ている「いま」で未来のものを選び直す。ビルドが古くても 0 で止まらない
+  function pickTarget(){
+    var now = Date.now(), pick = null;
+    for(var i=0;i<DEADLINES.length;i++){
+      var t = new Date(DEADLINES[i].iso).getTime();
+      if(t > now){ pick = {t:t, label:DEADLINES[i].label}; break; }
+    }
+    for(var j=0;!pick && j<FALLBACK.length;j++){
+      var ft = new Date(FALLBACK[j].iso).getTime();
+      if(ft > now) pick = {t:ft, label:FALLBACK[j].label};
+    }
+    var what = document.getElementById('cdwhat');
+    if(pick){
+      target = pick.t;
+      if(what) what.textContent = pick.label;
+    }else{
+      target = 0;
+      if(what) what.textContent = '次の締切は未定（更新までお待ちください）';
+    }
+    return !!pick;
+  }
+
+  // 過ぎた締切は自動で取り消し線に（ビルドし直さなくても古く見えない）
+  function markDone(){
+    var now = Date.now();
+    var rows = document.querySelectorAll('.dl[data-iso]');
+    for(var i=0;i<rows.length;i++){
+      if(new Date(rows[i].dataset.iso).getTime() <= now) rows[i].classList.add('done');
+    }
+  }
+
   function tick(){
+    if(target && target - Date.now() <= 0) pickTarget();
     var diff = Math.max(0, target - Date.now());
     var s = Math.floor(diff/1000);
-    document.getElementById('d').textContent = Math.floor(s/86400);
-    document.getElementById('h').textContent = String(Math.floor(s%86400/3600)).padStart(2,'0');
-    document.getElementById('m').textContent = String(Math.floor(s%3600/60)).padStart(2,'0');
-    document.getElementById('s').textContent = String(s%60).padStart(2,'0');
+    document.getElementById('d').textContent = target ? Math.floor(s/86400) : '–';
+    document.getElementById('h').textContent = target ? String(Math.floor(s%86400/3600)).padStart(2,'0') : '–';
+    document.getElementById('m').textContent = target ? String(Math.floor(s%3600/60)).padStart(2,'0') : '–';
+    document.getElementById('s').textContent = target ? String(s%60).padStart(2,'0') : '–';
   }
-  tick(); setInterval(tick, 1000);
+  pickTarget(); markDone(); tick();
+  setInterval(tick, 1000); setInterval(markDone, 60000);
 
   function addCal(btn){
     var t = encodeURIComponent(btn.dataset.title);
