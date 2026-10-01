@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<style>
+@font-face{font-family:"NotoJP";font-weight:700;src:url("https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-jp/files/noto-sans-jp-japanese-700-normal.woff2") format("woff2")}
+@font-face{font-family:"NotoJP";font-weight:900;src:url("https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-jp/files/noto-sans-jp-japanese-900-normal.woff2") format("woff2")}
+@font-face{font-family:"NotoLatin";font-weight:900;src:url("https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-jp/files/noto-sans-jp-latin-900-normal.woff2") format("woff2")}
+@font-face{font-family:"NotoLatin";font-weight:700;src:url("https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-jp/files/noto-sans-jp-latin-700-normal.woff2") format("woff2")}
+:root{--bg:#0a0a0d;--gold:#e4b258;--gold-hi:#ffe29e;--gold-deep:#966c22;--ink:#f5f5f2;--red:#ff4444;--dim:#8b8e9c}
+html,body{margin:0;padding:0}
+body{width:1280px;height:720px;overflow:hidden;font-family:"NotoJP","NotoLatin",sans-serif;color:var(--ink);background:var(--bg)}
+.stage{position:relative;width:1280px;height:720px;overflow:hidden}
+.bg{position:absolute;inset:0;background:
+  radial-gradient(700px 500px at 82% 55%, #23242c 0%, #0f1015 55%, var(--bg) 100%)}
+.goldline{position:absolute;left:0;top:0;bottom:0;width:18px;background:linear-gradient(180deg,var(--gold-hi),var(--gold),var(--gold-deep))}
+
+/* photo slot (official photo goes here) */
+.photo{position:absolute;right:-40px;top:40px;width:640px;height:640px;border-radius:50%;
+  background:radial-gradient(closest-side,#1c1d25 0%,#12131a 70%,rgba(0,0,0,0) 100%)}
+.photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 30px 40px rgba(0,0,0,.8))}
+.photo .ph{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);text-align:center;color:rgba(255,255,255,.28);font-size:26px;font-weight:700;line-height:1.5;white-space:nowrap}
+
+/* text */
+.kicker{position:absolute;left:60px;top:62px;font-family:"NotoLatin","NotoJP";font-weight:700;font-size:26px;letter-spacing:.18em;color:var(--gold)}
+.t1{position:absolute;left:56px;top:110px;font-weight:900;font-size:120px;line-height:1;letter-spacing:-.02em;color:#fff;text-shadow:0 8px 30px rgba(0,0,0,.9)}
+.t1 .num{font-family:"NotoLatin","NotoJP";font-size:150px;letter-spacing:-.04em;color:var(--gold-hi)}
+.t2{position:absolute;left:58px;top:262px;font-weight:900;font-size:132px;line-height:1;letter-spacing:-.01em;color:#fff;text-shadow:0 8px 30px rgba(0,0,0,.9)}
+.t3{position:absolute;left:60px;top:420px;font-weight:700;font-size:44px;color:var(--dim);letter-spacing:.04em}
+.t3 b{color:#fff;font-weight:900;font-size:64px;background:#fff;color:#000;padding:2px 18px 6px;border-radius:6px;margin-left:6px;vertical-align:-6px}
+
+.price{position:absolute;left:60px;top:560px;background:var(--red);color:#fff;font-weight:900;font-size:58px;line-height:1;padding:18px 30px 22px;border-radius:14px;white-space:nowrap;
+  box-shadow:0 14px 40px rgba(0,0,0,.8),0 0 0 5px var(--bg),0 0 0 9px #fff;transform:rotate(-2deg)}
+.price small{font-size:32px;font-weight:700;margin-right:12px;vertical-align:6px}
+.price .yen{font-family:"NotoLatin","NotoJP";letter-spacing:-.02em}
+.first{position:absolute;left:470px;top:566px;font-weight:900;font-size:50px;color:var(--gold);letter-spacing:.06em;text-shadow:0 6px 20px rgba(0,0,0,.9)}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="bg"></div>
+  <div class="goldline"></div>
+
+  <div class="photo">
+    <!-- 公式写真をここに入れる: <img src="official.jpg"> -->
+    <div class="ph">公式写真<br>（黒のジョーダン11）<br>をここに</div>
+  </div>
+
+  <div class="kicker">AIR JORDAN 11 × COMME des GARÇONS</div>
+  <div class="t1"><span class="num">30</span>年目の</div>
+  <div class="t2">初コラボ</div>
+  <div class="t3">相手は <b>ギャルソン</b></div>
+
+  <div class="price"><small>定価</small><span class="yen">¥53,000</span></div>
+  <div class="first">買う価値ある？</div>
+</div>
+</body>
+</html>
