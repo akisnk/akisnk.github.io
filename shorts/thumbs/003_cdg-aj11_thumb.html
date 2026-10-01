@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<style>
+@font-face{font-family:"NotoJP";font-weight:700;src:url("https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-jp/files/noto-sans-jp-japanese-700-normal.woff2") format("woff2")}
+@font-face{font-family:"NotoJP";font-weight:900;src:url("https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-jp/files/noto-sans-jp-japanese-900-normal.woff2") format("woff2")}
+@font-face{font-family:"NotoLatin";font-weight:900;src:url("https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-jp/files/noto-sans-jp-latin-900-normal.woff2") format("woff2")}
+@font-face{font-family:"NotoLatin";font-weight:700;src:url("https://cdn.jsdelivr.net/npm/@fontsource/noto-sans-jp/files/noto-sans-jp-latin-700-normal.woff2") format("woff2")}
+html,body{margin:0;padding:0}
+body{width:1080px;height:1920px;overflow:hidden;font-family:"NotoJP","NotoLatin",sans-serif;color:#fff;background:#000}
+body.overlay{background:transparent}
+.stage{position:relative;width:1080px;height:1920px}
+
+/* ---- background: glossy black patent "mudguard" feel ---- */
+.bg{position:absolute;inset:0;background:
+  radial-gradient(900px 700px at 50% 78%, #2a2a2a 0%, #0c0c0c 55%, #000 100%)}
+.body.overlay .bg{display:none}
+.gloss{position:absolute;left:-200px;top:1080px;width:1480px;height:900px;border-radius:50% 50% 0 0/60% 60% 0 0;
+  background:linear-gradient(180deg,#1b1b1b 0%,#050505 60%,#000 100%);
+  box-shadow:0 -40px 120px rgba(0,0,0,.9) inset}
+.gloss::before{content:"";position:absolute;left:120px;top:60px;width:900px;height:110px;border-radius:50%;
+  background:linear-gradient(90deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.55) 35%,rgba(255,255,255,.9) 50%,rgba(255,255,255,.55) 65%,rgba(255,255,255,0) 100%);
+  filter:blur(6px);opacity:.75}
+.gloss::after{content:"";position:absolute;left:260px;top:210px;width:560px;height:30px;border-radius:50%;
+  background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.35),rgba(255,255,255,0));filter:blur(4px)}
+.floor{position:absolute;left:0;right:0;bottom:0;height:260px;
+  background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.85) 100%)}
+.photo-note{position:absolute;left:50%;top:1290px;transform:translateX(-50%);font-size:30px;font-weight:700;color:rgba(255,255,255,.28);letter-spacing:.08em;white-space:nowrap}
+
+/* ---- text ---- */
+.tag{position:absolute;left:0;right:0;top:300px;text-align:center;font-family:"NotoLatin","NotoJP";font-weight:700;font-size:32px;letter-spacing:.12em;color:#cfcfcf;white-space:nowrap}
+.tag b{color:#fff}
+.line1{position:absolute;left:0;right:0;top:380px;text-align:center;font-weight:900;font-size:182px;line-height:1;letter-spacing:-.02em;
+  text-shadow:0 10px 40px rgba(0,0,0,.9),0 0 2px #000}
+.line1 .y{color:#ffd400;-webkit-text-stroke:3px #ffd400;text-shadow:0 0 30px rgba(255,212,0,.35),0 10px 40px rgba(0,0,0,.9)}
+.line1 .num{font-family:"NotoLatin","NotoJP";font-size:230px;letter-spacing:-.04em;vertical-align:-10px}
+.line2{position:absolute;left:0;right:0;top:600px;text-align:center;font-weight:900;font-size:206px;line-height:1;letter-spacing:-.01em;
+  text-shadow:0 10px 40px rgba(0,0,0,.9)}
+.line3{position:absolute;left:0;right:0;top:850px;text-align:center;font-weight:900;font-size:120px;line-height:1.05;
+  text-shadow:0 8px 30px rgba(0,0,0,.9)}
+.line3 small{display:block;font-size:72px;font-weight:700;color:#d6d6d6;margin-bottom:14px;letter-spacing:.08em}
+.line3 .brand{color:#fff;background:#fff;color:#000;padding:6px 36px 10px;border-radius:6px;display:inline-block;letter-spacing:.02em}
+
+.price{position:absolute;left:50%;top:1385px;transform:translateX(-50%) rotate(-3deg);
+  background:#e8102a;color:#fff;font-weight:900;font-size:92px;line-height:1;padding:30px 60px 36px;border-radius:24px;white-space:nowrap;
+  box-shadow:0 20px 60px rgba(0,0,0,.8),0 0 0 8px #000,0 0 0 14px #fff}
+.price small{font-size:52px;font-weight:700;margin-right:18px;vertical-align:8px}
+.price .yen{font-family:"NotoLatin","NotoJP";letter-spacing:-.02em}
+.q{position:absolute;left:0;right:0;top:1625px;text-align:center;font-weight:900;font-size:84px;line-height:1;letter-spacing:.06em;
+  text-shadow:0 8px 30px rgba(0,0,0,.95)}
+.q .y{color:#ffd400}
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="bg"></div>
+  <div class="gloss"></div>
+  <div class="floor"></div>
+  <div class="photo-note">↑ ここに自分で撮った靴の写真を入れる ↑</div>
+
+  <div class="tag"><b>AIR JORDAN 11</b> &nbsp;×&nbsp; <b>COMME des GARÇONS</b></div>
+  <div class="line1"><span class="y"><span class="num">30</span>年</span>で</div>
+  <div class="line2">初コラボ</div>
+  <div class="line3"><small>その相手が</small><span class="brand">ギャルソン</span></div>
+
+  <div class="price"><small>定価</small><span class="yen">¥53,000</span></div>
+  <div class="q">高い？<span class="y">安い？</span></div>
+</div>
+</body>
+</html>
